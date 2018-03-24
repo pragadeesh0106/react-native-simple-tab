@@ -24,7 +24,7 @@ class Tab extends PureComponent {
         if (this.props.selected === this.props.tabIndex) {
             return this.props.activeColor;
         }
-        
+
         return this.props.unActiveColor;
     }
 
@@ -35,16 +35,16 @@ class Tab extends PureComponent {
                 activeOpacity={this.props.pressOpacity}
                 style={[this.props.style, styles.container]}
             >
-                    <Icon
-                        name={this.props.name}
-                        size={this.props.iconSize}
-                        color={this._getColor()}
-                    />
-                    {!this.props.onlyIcon &&
-                        <Text style={[ this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize } ]}>
-                            {this.props.label}
-                        </Text>
-                    }
+                <Icon
+                    name={this.props.name}
+                    size={this.props.iconSize}
+                    color={this._getColor()}
+                />
+                {!this.props.onlyIcon &&
+                    <Text style={[this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize }]}>
+                        {this.props.label}
+                    </Text>
+                }
             </TouchableOpacity>
         );
     }
@@ -61,7 +61,7 @@ Tab.propTypes = {
 };
 
 const styles = StyleSheet.create({
-    container: { 
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
