@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-		"react-native-cross-platform-icons": "^1.0.4"
+    "prop-types": "^15.6.1",
+    "react-native-cross-platform-icons": "^1.0.4"
   },
   "repository": {
     "type": "git",
