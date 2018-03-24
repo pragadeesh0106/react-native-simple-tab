@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
-    "react-native-cross-platform-icons": "^1.0.4"
+    "react-native-cross-platform-icons": "^1.0.4",
+    "react-native-vector-icons": "^4.5.0"
   },
   "repository": {
     "type": "git",

@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import CrossPlatformIcon from 'react-native-cross-platform-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Tab extends PureComponent {
     constructor() {
@@ -34,7 +35,7 @@ class Tab extends PureComponent {
                 activeOpacity={this.props.pressOpacity}
                 style={[this.props.style, styles.container]}
             >
-                    <CrossPlatformIcon
+                    <Icon
                         name={this.props.name}
                         size={this.props.iconSize}
                         color={this._getColor()}
