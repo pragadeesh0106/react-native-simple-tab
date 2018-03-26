@@ -30,22 +30,31 @@ class Tab extends PureComponent {
 
     render() {
         return (
-            <TouchableOpacity
-                onPress={this._handleTabPress}
-                activeOpacity={this.props.pressOpacity}
-                style={[this.props.style, styles.container]}
-            >
-                <Icon
-                    name={this.props.name}
-                    size={this.props.iconSize}
-                    color={this._getColor()}
-                />
-                {!this.props.onlyIcon &&
-                    <Text style={[this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize }]}>
-                        {this.props.label}
-                    </Text>
-                }
-            </TouchableOpacity>
+            <View style={[
+                {
+                    borderBottomColor: this.props.selected === this.props.tabIndex ? this.props.activeColor : "#fff",
+                    borderBottomWidth: 2
+                },
+                this.props.style,
+                styles.container
+            ]} >
+                <TouchableOpacity
+                    onPress={this._handleTabPress}
+                    activeOpacity={this.props.pressOpacity}
+                    style={[this.props.style, styles.container]}
+                >
+                    <Icon
+                        name={this.props.name}
+                        size={this.props.iconSize}
+                        color={this._getColor()}
+                    />
+                    {!this.props.onlyIcon &&
+                        <Text style={[this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize }]}>
+                            {this.props.label}
+                        </Text>
+                    }
+                </TouchableOpacity>
+            </View>
         );
     }
 }
