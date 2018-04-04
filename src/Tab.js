@@ -43,11 +43,13 @@ class Tab extends PureComponent {
                     activeOpacity={this.props.pressOpacity}
                     style={[this.props.style, styles.container]}
                 >
-                    <Icon
-                        name={this.props.name}
-                        size={this.props.iconSize}
-                        color={this._getColor()}
-                    />
+                    {this.props.name &&
+                        <Icon
+                            name={this.props.name}
+                            size={this.props.iconSize}
+                            color={this._getColor()}
+                        />
+                    }
                     {!this.props.onlyIcon &&
                         <Text style={[this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize }]}>
                             {this.props.label}
@@ -60,7 +62,7 @@ class Tab extends PureComponent {
 }
 
 Tab.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     label: PropTypes.string,
     fontStyle: PropTypes.object,
     style: PropTypes.oneOfType([
