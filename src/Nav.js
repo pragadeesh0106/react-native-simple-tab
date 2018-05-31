@@ -2,104 +2,79 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    Text,
     StyleSheet,
-    TouchableOpacity,
 } from 'react-native';
-import CrossPlatformIcon from 'react-native-cross-platform-icons';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-class Tab extends PureComponent {
+class Nav extends PureComponent {
     constructor() {
         super();
 
-        this._handleTabPress = this._handleTabPress.bind(this);
+        this._handleTabChange = this._handleTabChange.bind(this);
     }
 
-    _handleTabPress() {
-        this.props.onTabPress(this.props.tabIndex);
+    _handleTabChange(tabIndex) {
+        this.props.onTabChange(tabIndex);
     }
 
-    _getColor() {
-        if (this.props.selected === this.props.tabIndex) {
-            return this.props.activeColor;
-        }
+    _containerStyle() {
+        return {
+            flexDirection: this.props.position && this.props.position === 'Bottom' ? 'column' : 'row',
+            borderTopWidth: StyleSheet.hairlineWidth,
+            backgroundColor: this.props.position && this.props.position === 'Bottom' ? "#f7f7f7" : this.props.backgroundColor,
+            borderTopColor: this.props.borderTopColor,
+            height: this.props.height,
 
-        return this.props.unActiveColor;
-    }
-
-    getBorder() {
-        if (this.props.highlight) {
-            return {
-                borderBottomColor: this.props.selected === this.props.tabIndex ? this.props.activeColor : "#fff",
-                borderBottomWidth: 2,
-            }
         }
     }
 
-    getBackgroundColor() {
-        if (this.props.selected === this.props.tabIndex) {
-            return "#fff";
-        } else {
-            return "#f7f7f7";
-        }
-    }
-
-    getBottomPositionStyles() {
-        if (this.props.positionBottom) {
-            return {
-                backgroundColor: this.getBackgroundColor(),
-                width: "100%",
-                paddingRight: 10,
-                paddingLeft: 10
-            }
-        }
-    }
     render() {
         return (
-            <View style={[this.getBorder(), this.props.style, styles.container]} >
-                <TouchableOpacity
-                    onPress={this._handleTabPress}
-                    activeOpacity={this.props.pressOpacity}
-                    style={[this.props.style, styles.container, this.getBottomPositionStyles()]}
-                >
-                    {this.props.name &&
-                        <Icon
-                            name={this.props.name}
-                            size={this.props.iconSize}
-                            color={this.props.highlight ? this._getColor() : "#000"}
-                        />
-                    }
-                    {this.props.image ? (this.props.image) : <View />}
-                    {!this.props.onlyIcon &&
-                        <Text style={[this.props.fontStyle, { color: this.props.highlight ? this._getColor() : "#000", fontSize: this.props.fontSize }]}>
-                            {this.props.label}
-                        </Text>
-                    }
-                </TouchableOpacity>
+            <View style={[this._containerStyle(), this.props.style]}>
+                {React.Children.map(this.props.children, (child, tabIndex) => (
+                    React.cloneElement(child, {
+                        tabIndex,
+                        selected: this.props.selected,
+                        activeColor: this.props.activeColor,
+                        unActiveColor: this.props.unActiveColor,
+                        onTabPress: this._handleTabChange,
+                        iconSize: this.props.iconSize,
+                        onlyIcon: this.props.onlyIcon,
+                        pressOpacity: this.props.pressOpacity,
+                        fontSize: this.props.fontSize,
+                    })
+                ))}
             </View>
         );
     }
 }
 
-Tab.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.string,
+Nav.defaultProps = {
+    onTabChange: () => { },
+    activeColor: 'black',
+    unActiveColor: 'gray',
+    backgroundColor: 'white',
+    borderTopColor: '#DDDDDD',
+    height: 42,
+    iconSize: 22,
+    onlyIcon: false,
+    pressOpacity: 0.7,
+    fontSize: 11,
+};
+
+Nav.propTypes = {
+    selected: PropTypes.number,
+    onTabChange: PropTypes.func,
+    backgroundColor: PropTypes.string,
+    borderTopColor: PropTypes.string,
+    height: PropTypes.number,
+    iconSize: PropTypes.number,
+    onlyIcon: PropTypes.bool,
+    pressOpacity: PropTypes.number,
     fontStyle: PropTypes.object,
-    positionBottom: PropTypes.bool,
-    highlight: PropTypes.bool,
     style: PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.number
     ]),
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-});
-
-export default Tab;
+export default Nav;
