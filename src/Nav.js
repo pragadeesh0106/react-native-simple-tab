@@ -20,7 +20,7 @@ class Nav extends PureComponent {
         return {
             flexDirection: this.props.position && this.props.position === 'Bottom' ? 'column' : 'row',
             borderTopWidth: StyleSheet.hairlineWidth,
-            backgroundColor: this.props.position && this.props.position === 'Bottom' ? "#f7f7f7" : this.props.backgroundColor,
+            backgroundColor: this.props.position && this.props.position === 'Bottom' ? "#f1f1f1" : this.props.backgroundColor,
             borderTopColor: this.props.borderTopColor,
             height: this.props.height,
 

@@ -41,7 +41,7 @@ class Tab extends PureComponent {
         if (this.props.selected === this.props.tabIndex) {
             return "#fff";
         } else {
-            return "#f7f7f7";
+            return "#f1f1f1";
         }
     }
 
