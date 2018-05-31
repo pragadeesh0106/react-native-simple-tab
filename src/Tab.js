@@ -28,30 +28,51 @@ class Tab extends PureComponent {
         return this.props.unActiveColor;
     }
 
+    getBorder() {
+        if (this.props.highlight) {
+            return {
+                borderBottomColor: this.props.selected === this.props.tabIndex ? this.props.activeColor : "#fff",
+                borderBottomWidth: 2,
+            }
+        }
+    }
+
+    getBackgroundColor() {
+        if (this.props.selected === this.props.tabIndex) {
+            return "#fff";
+        } else {
+            return "#f7f7f7";
+        }
+    }
+
+    getBottomPositionStyles() {
+        if (this.props.positionBottom) {
+            return {
+                backgroundColor: this.getBackgroundColor(),
+                width: "100%",
+                paddingRight: 10,
+                paddingLeft: 10
+            }
+        }
+    }
     render() {
         return (
-            <View style={[
-                {
-                    borderBottomColor: this.props.selected === this.props.tabIndex ? this.props.activeColor : "#fff",
-                    borderBottomWidth: 2
-                },
-                this.props.style,
-                styles.container
-            ]} >
+            <View style={[this.getBorder(), this.props.style, styles.container]} >
                 <TouchableOpacity
                     onPress={this._handleTabPress}
                     activeOpacity={this.props.pressOpacity}
-                    style={[this.props.style, styles.container]}
+                    style={[this.props.style, styles.container, this.getBottomPositionStyles()]}
                 >
                     {this.props.name &&
                         <Icon
                             name={this.props.name}
                             size={this.props.iconSize}
-                            color={this._getColor()}
+                            color={this.props.highlight ? this._getColor() : "#000"}
                         />
                     }
+                    {this.props.image ? (this.props.image) : <View />}
                     {!this.props.onlyIcon &&
-                        <Text style={[this.props.fontStyle, { color: this._getColor(), fontSize: this.props.fontSize }]}>
+                        <Text style={[this.props.fontStyle, { color: this.props.highlight ? this._getColor() : "#000", fontSize: this.props.fontSize }]}>
                             {this.props.label}
                         </Text>
                     }
@@ -65,6 +86,8 @@ Tab.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     fontStyle: PropTypes.object,
+    positionBottom: PropTypes.bool,
+    highlight: PropTypes.bool,
     style: PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.number
@@ -75,7 +98,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
 });
 
