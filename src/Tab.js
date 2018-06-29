@@ -67,7 +67,7 @@ class Tab extends PureComponent {
                         <Icon
                             name={this.props.name}
                             size={this.props.iconSize}
-                            color={this.props.highlight ? this._getColor() : "#000"}
+                            color={this.props.iconColor ? this.props.iconColor : this.props.highlight ? this._getColor() : "#000"}
                         />
                     }
                     {this.props.image ? (this.props.image) : <View />}
